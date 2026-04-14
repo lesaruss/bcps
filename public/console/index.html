@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In - K-12 Unlocked BCPS Console</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    :focus-visible {
+      outline: 3px solid #F4C436;
+      outline-offset: 3px;
+    }
+
+    :root {
+      --k12-navy: #0B1F3A;
+      --k12-navy-mid: #132A4E;
+      --k12-blue: #2563EB;
+      --k12-blue-light: #3B82F6;
+      --bcps-blue: #1672A7;
+      --bcps-yellow: #F4C436;
+      --text-primary: #1A1A2E;
+      --text-secondary: #4A5568;
+      --text-muted: #6B7280;
+      --bg-page: #F4F6FA;
+      --bg-card: #FFFFFF;
+      --border: #E2E8F0;
+      --sidebar-text: #94A3B8;
+      --sidebar-hover: rgba(255,255,255,0.07);
+      --sidebar-active: rgba(37,99,235,0.18);
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-primary);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.5;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 264px;
+      background-color: var(--k12-navy);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      z-index: 50;
+      overflow-y: auto;
+    }
+
+    .sidebar-brand {
+      padding: 22px 20px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .k12-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .k12-dot {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(37,99,235,0.4);
+    }
+
+    .k12-dot-inner {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #ffffff;
+    }
+
+    .k12-wordmark {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .k12-wordmark-top {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--k12-blue-light);
+    }
+
+    .k12-wordmark-bottom {
+      font-size: 18px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.3px;
+    }
+
+    .sidebar-footer {
+      margin-top: auto;
+      padding: 14px 16px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .main {
+      margin-left: 264px;
+      flex: 1;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 32px;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 420px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 48px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+
+    .login-logo {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 32px;
+    }
+
+    .login-logo img {
+      height: 48px;
+      width: auto;
+    }
+
+    .login-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--text-primary);
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .login-subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 14px;
+      color: var(--text-primary);
+      background: #ffffff;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-input:focus {
+      border-color: var(--bcps-blue);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(22, 114, 167, 0.1);
+    }
+
+    .form-input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .signin-button {
+      width: 100%;
+      padding: 12px 16px;
+      background-color: var(--bcps-blue);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.1s;
+      margin-bottom: 20px;
+    }
+
+    .signin-button:hover {
+      background-color: #135A8A;
+      transform: translateY(-1px);
+    }
+
+    .signin-button:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(22, 114, 167, 0.25);
+    }
+
+    .signin-button:active {
+      transform: translateY(0);
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 28px 0;
+      gap: 12px;
+    }
+
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background-color: var(--border);
+    }
+
+    .divider-text {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .google-button {
+      width: 100%;
+      padding: 12px 16px;
+      background-color: #ffffff;
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s, border-color 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .google-button:hover {
+      background-color: #f7fafc;
+      border-color: #cbd5e0;
+    }
+
+    .google-button:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(22, 114, 167, 0.1);
+    }
+
+    .google-icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 200px;
+      }
+      .main {
+        margin-left: 200px;
+        padding: 24px 16px;
+      }
+      .login-card {
+        padding: 32px 24px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .sidebar {
+        position: absolute;
+        width: 100%;
+        transform: translateX(-100%);
+      }
+      .main {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <div class="sidebar-brand">
+      <div class="k12-logo">
+        <div class="k12-dot">
+          <div class="k12-dot-inner"></div>
+        </div>
+        <div class="k12-wordmark">
+          <div class="k12-wordmark-top">Platform</div>
+          <div class="k12-wordmark-bottom">K-12 Unlocked</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="flex: 1;"></div>
+
+    <div class="sidebar-footer">
+      <p style="font-size: 12px; color: var(--sidebar-text); text-align: center;">K-12 Unlocked Console</p>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="login-card">
+      <div class="login-logo">
+        <img src="bcps-logo.png" alt="BCPS Logo">
+      </div>
+      <h1 class="login-title">Sign in to your BCPS Console</h1>
+      <p class="login-subtitle">Enter your credentials to access the K-12 Unlocked platform</p>
+
+      <form onsubmit="event.preventDefault();">
+        <div class="form-group">
+          <label class="form-label" for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            class="form-input"
+            placeholder="your@email.com"
+            required
+            aria-label="Email address"
+          >
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            class="form-input"
+            placeholder="Password"
+            required
+            aria-label="Password"
+          >
+        </div>
+
+        <button type="submit" class="signin-button">Sign In</button>
+      </form>
+
+      <div class="divider">
+        <div class="divider-line"></div>
+        <div class="divider-text">or continue with</div>
+        <div class="divider-line"></div>
+      </div>
+
+      <button class="google-button" aria-label="Sign in with Google">
+        <svg class="google-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="9"></circle>
+          <path d="M12 7v5l3 2"></path>
+        </svg>
+        Continue with Google
+      </button>
+    </div>
+  </div>
+</body>
+</html>
