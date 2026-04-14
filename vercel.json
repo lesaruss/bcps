@@ -3,6 +3,12 @@
   "outputDirectory": ".next",
   "framework": "nextjs",
   "regions": ["iad1"],
+  "rewrites": [
+    {
+      "source": "/console/:path*",
+      "destination": "/console/:path*"
+    }
+  ],
   "headers": [
     {
       "source": "/console/:path*",
@@ -17,5 +23,4 @@
         }
       ]
     }
-  ]
-}
+  CŸJ
