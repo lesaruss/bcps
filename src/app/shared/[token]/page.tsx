@@ -24,7 +24,7 @@ export default function SharedNotesPage() {
     };
     fetchNote();
   }, [supabase, token]);
-  if (isLoading) return (<div className="flex items-center justify-center min-h-screen" style={{ backgroundColor: '#EFEFEF' }}><div className="animate-spin w-8 h-8 border-4 rounded-full" style={{ borderColor: '#EFEFEF', borderTopColor: '#1672A7' }} /></div></div>);
+  if (isLoading) return (<div className="flex items-center justify-center min-h-screen" style={{ backgroundColor: '#EFEFEF' }}><div className="animate-spin w-8 h-8 border-4 rounded-full" style={{ borderColor: '#EFEFEF', borderTopColor: '#1672A7' }} /></div>);
   if (!note) return (<div className="flex items-center justify-center min-h-screen"><div className="text-center"><h1 className="text-2xl font-bold mb-2">Document Not Found</h1><p style={{ color: '#525252' }}>This document is not available.</p></div></div>);
   const handleDownload = (type: 'pdf' | 'docx') => {
     const path = type === 'pdf' ? note.pdf_path : note.docx_path;
