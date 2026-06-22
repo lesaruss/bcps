@@ -94,7 +94,7 @@ export default function RevisionChat({
             className="w-full px-4 py-2.5 rounded-full text-sm font-medium flex items-center justify-center gap-2 disabled:opacity-50"
             style={{ backgroundColor: '#F4C436', color: '#262626' }}
           >
-            {isProcessing 4 (
+            {isProcessing ? (
               <>
                 <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
