@@ -1,11 +1,5 @@
-import { readFileSync } from 'fs';
-import { join } from 'path';
+import { redirect } from 'next/navigation';
 
 export default function MarcommPage() {
-  const filePath = join(process.cwd(), 'public/console/marcomm.html');
-  const htmlContent = readFileSync(filePath, 'utf-8');
-
-  return (
-    <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
-  );
+  redirect('/console/marcomm.html');
 }
